@@ -38,3 +38,37 @@ jobs:
   cpuRequirement: 250
   memoryRequirement: 256
   timeout: 3600
+- name: Compilation
+  steps:
+  - !CheckoutStep
+    name: Checkout code
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !CommandStep
+    name: Compile code
+    runInContainer: true
+    image: ubuntu
+    interpreter: !DefaultInterpreter
+      commands:
+      - '# Update ubuntu packages'
+      - apt update
+      - '# Install curl'
+      - apt install curl -y
+      - ''
+      - '# Install arduino-cli'
+      - curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh
+        | sh
+      - ''
+      - '# Install Arduino Uno Core'
+      - ./bin/arduino-cli core install arduino:avr
+      - ./bin/arduino-cli compile -b arduino:avr:uno strongbox
+    useTTY: false
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  cpuRequirement: 250
+  memoryRequirement: 256
+  timeout: 3600
