@@ -25,6 +25,13 @@ jobs:
     reportName: Arduino Lint - Report
     file: report.txt
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger
+    branches: -basic
+    paths: strongbox/**
+  - !PullRequestUpdateTrigger
+    branches: -basic
+    paths: strongbox/**
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
