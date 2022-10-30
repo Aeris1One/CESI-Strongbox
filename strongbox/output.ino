@@ -9,6 +9,14 @@ const int del4Pin = 3;
 const int delGreenPin = 2;
 
 /*
+  Variables
+  failedAuth : number of failedAuth since the last safe opening
+  lockTime : time (in tenths of a second) the lock will last on failed opening attempt, will double each time the safe locks
+*/
+int failedAuth = 0;
+int lockTime = 300;
+
+/*
   setup
   ---
   Mark all pins connected to DELs as output
@@ -32,6 +40,24 @@ void error() {
   // We print error to Serial
   Serial.println("Authentication failed");
   
+  // If this is the fourst failed authentication attempt
+  // i.e: If there was already 3 failed attempts registered
+  if (failedAuth == 3){
+    // Output the lock time to Serial
+    Serial.print("Too much failed attemps, locking for ");
+    Serial.print(lockTime/10);
+    Serial.println(" seconds");
+    // We lock the safe for lockTime
+    lock(lockTime);
+    // We double the lockTime for the next time
+    lockTime = lockTime * 2;
+    // N.B: No need to decrement failedAuth, it will stay at 3 and fire
+    // another lock on the next failed attempt.
+  } else {
+    // We increment the number of failed tries
+    failedAuth++;
+  }
+
   // We loop 3 times
   int count = 3;
   while (count != 0){
@@ -44,7 +70,29 @@ void error() {
     // Wait another 200ms
     delay(200);
     // Decrement counter
-    count = count - 1;
+    count--;
+  }
+}
+
+/*
+  lock
+  ---
+  Input : Time in tenths of a second
+  Output: Nothing
+  Effect: Show an animation during the time defined as input. Synchronous, will block execution of the code, effectively
+          locking the safe and preventing input.
+*/
+void lock(int time) {
+  int delsOn = 0;
+  while (time != 0){
+    if (delsOn <= 4){
+      delsOn++;
+    } else {
+      delsOn = 0;
+    }
+    delOutput(delsOn, false);
+    time--;
+    delay(100);
   }
 }
 
