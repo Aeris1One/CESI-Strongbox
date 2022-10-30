@@ -18,6 +18,7 @@ const int code4 = 4;
 
 // Variables
 int codeStatus;
+bool shouldError;
 
 void setup() {
   // Setup input.ino and output.ino
@@ -28,7 +29,7 @@ void setup() {
   codeStatus = 1;
 
   // Initiate Serial connection
-  Serial.begin(9600)
+  Serial.begin(9600);
 }
 
 void loop() {
@@ -36,58 +37,54 @@ void loop() {
   // This ensure the button isn't released during the loop execution
   int buttonVar = buttonPressed();
 
-  // If we're waiting for the passcode's first character
-  if(codeStatus == 1){
-	  // And if the correct button is pressed
-    if (buttonVar == code1){
-	    // Then we ask for the second character
-      codeStatus++;
-      // And turn on the correct number of DELs
-      delOutput(1, false);
-      // Then print success to Serial
-      Serial.println("Passcode authentication - Correct 1/4")
-	  // Else, if a button is pressed but not the correct one
-    } else if (buttonVar != 0) {
-	    // We output an error
-      error();
+  if(buttonVar != 0){
+    if(codeStatus == 1){
+      if(buttonVar == code1){
+        Serial.println("Passcode authentication - Correct 1/4");
+      } else {
+        shouldError = true;
+        Serial.println("Passcode authentication - Incorrect 1/4");
+      }
     }
-  }
-
-  // Let's repeat for the second character
-  else if(codeStatus == 2){
-    if (buttonVar == code2){
-      codeStatus++;
-      delOutput(2, false);
-      Serial.println("Passcode authentication - Correct 2/4")
-    } else if (buttonVar != 0) {
-      error();
-      // Here we also reset codeStatus to one
-      codeStatus = 1;
+    if(codeStatus == 2){
+      if(buttonVar == code2){
+        Serial.println("Passcode authentication - Correct 2/4");
+      } else {
+        shouldError = true;
+        Serial.println("Passcode authentication - Incorrect 2/4");
+      }
     }
-  }
-
-  // Then for the third
-  else if(codeStatus == 3){
-    if (buttonVar == code3){
-      codeStatus++;
-      delOutput(3, false);
-      Serial.println("Passcode authentication - Correct 3/4")
-    } else if (buttonVar != 0) {
-      error();
-      codeStatus = 1;
+    if(codeStatus == 3){
+      if(buttonVar == code3){
+        Serial.println("Passcode authentication - Correct 3/4");
+      } else {
+        shouldError = true;
+        Serial.println("Passcode authentication - Incorrect 3/4");
+      }
     }
-  }
+    if(codeStatus == 4){
+      if(buttonVar == code4){
+        Serial.println("Passcode authentication - Correct 4/4");
+      } else {
+        shouldError = true;
+        Serial.println("Passcode authentication - Incorrect 4/4");
+      }
+    }
 
-  // And finally the last one
-  else if(codeStatus == 4){
-    if (buttonVar == code4){
-      // But this time if the character is correct we open the safe and turn on the green DEL
-      delOutput(4, true);
-      openSafe();
-      Serial.println("Passcode authentication - Authentication succeeded")
-    } else if (buttonVar != 0) {
-      error();
-      codeStatus = 1;
+    if(codeStatus != 4){
+      codeStatus++;
+      delOutput(codeStatus-1, false);
+    } else {
+      if(shouldError){
+        Serial.println("Passcode authentication - Failed");
+        error();
+        codeStatus = 1;
+        shouldError = false;
+      } else {
+        Serial.println("Passcode authentication - Succeeded");
+        delOutput(4, true);
+        openSafe();
+      }
     }
   }
 }

@@ -30,7 +30,7 @@ void outputSetup() {
 */
 void error() {
   // We print error to Serial
-  Serial.println("Authentication failed")
+  Serial.println("Authentication failed");
   
   // We loop 3 times
   int count = 3;
