@@ -29,16 +29,20 @@ void setup() {
 }
 
 void loop() {
+  // Call buttonPressed and store its output as buttonVar
+  // This ensure the button isn't released during the loop execution
+  int buttonVar = buttonPressed();
+
   // If we're waiting for the passcode's first character
   if(codeStatus == 1){
 	  // And if the correct button is pressed
-    if (buttonPressed() == code1){
+    if (buttonVar == code1){
 	    // Then we ask for the second character
       codeStatus++;
       // And turn on the correct number of DELs
       delOutput(1, false);
 	  // Else, if a button is pressed but not the correct one
-    } else if (buttonPressed() != 0) {
+    } else if (buttonVar != 0) {
 	    // We output an error
       error();
     }
@@ -46,32 +50,36 @@ void loop() {
 
   // Let's repeat for the second character
   else if(codeStatus == 2){
-    if (buttonPressed() == code2){
+    if (buttonVar == code2){
       codeStatus++;
       delOutput(2, false);
-    } else if (buttonPressed() != 0) {
+    } else if (buttonVar != 0) {
       error();
+      // Here we also reset codeStatus to one
+      codeStatus = 1;
     }
   }
 
   // Then for the third
   else if(codeStatus == 3){
-    if (buttonPressed() == code3){
+    if (buttonVar == code3){
       codeStatus++;
       delOutput(3, false);
-    } else if (buttonPressed() != 0) {
+    } else if (buttonVar != 0) {
       error();
+      codeStatus = 1;
     }
   }
 
   // And finally the last one
   else if(codeStatus == 4){
-    if (buttonPressed() == code4){
+    if (buttonVar == code4){
       // But this time if the character is correct we open the safe and turn on the green DEL
       delOutput(4, true);
       openSafe();
-    } else if (buttonPressed != 0) {
+    } else if (buttonVar != 0) {
       error();
+      codeStatus = 1;
     }
   }
 }
