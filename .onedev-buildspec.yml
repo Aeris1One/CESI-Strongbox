@@ -1,0 +1,33 @@
+version: 18
+jobs:
+- name: Linter
+  steps:
+  - !CheckoutStep
+    name: Checkout code
+    cloneCredential: !DefaultCredential {}
+    withLfs: false
+    withSubmodules: false
+    condition: ALWAYS
+  - !CommandStep
+    name: Run Linter
+    runInContainer: true
+    image: ubuntu
+    interpreter: !DefaultInterpreter
+      commands:
+      - apt update && apt install curl -y
+      - curl -fsSL https://raw.githubusercontent.com/arduino/arduino-lint/main/etc/install.sh
+        | sh
+      - ./bin/arduino-lint --format text --report-file report.txt ./strongbox
+    useTTY: true
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  - !PublishPullRequestMarkdownReportStep
+    name: Display Report
+    reportName: Arduino Lint - Report
+    file: report.txt
+    condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  retryCondition: never
+  maxRetries: 3
+  retryDelay: 30
+  cpuRequirement: 250
+  memoryRequirement: 256
+  timeout: 3600
