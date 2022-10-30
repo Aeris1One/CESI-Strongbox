@@ -26,6 +26,9 @@ void setup() {
 
   // When starting, we're asking for the passcode's first character
   codeStatus = 1;
+
+  // Initiate Serial connection
+  Serial.begin(9600)
 }
 
 void loop() {
@@ -41,6 +44,8 @@ void loop() {
       codeStatus++;
       // And turn on the correct number of DELs
       delOutput(1, false);
+      // Then print success to Serial
+      Serial.println("Passcode authentication - Correct 1/4")
 	  // Else, if a button is pressed but not the correct one
     } else if (buttonVar != 0) {
 	    // We output an error
@@ -53,6 +58,7 @@ void loop() {
     if (buttonVar == code2){
       codeStatus++;
       delOutput(2, false);
+      Serial.println("Passcode authentication - Correct 2/4")
     } else if (buttonVar != 0) {
       error();
       // Here we also reset codeStatus to one
@@ -65,6 +71,7 @@ void loop() {
     if (buttonVar == code3){
       codeStatus++;
       delOutput(3, false);
+      Serial.println("Passcode authentication - Correct 3/4")
     } else if (buttonVar != 0) {
       error();
       codeStatus = 1;
@@ -77,6 +84,7 @@ void loop() {
       // But this time if the character is correct we open the safe and turn on the green DEL
       delOutput(4, true);
       openSafe();
+      Serial.println("Passcode authentication - Authentication succeeded")
     } else if (buttonVar != 0) {
       error();
       codeStatus = 1;

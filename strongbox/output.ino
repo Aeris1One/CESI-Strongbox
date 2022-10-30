@@ -29,18 +29,21 @@ void outputSetup() {
   Effect: Turn on then off all red leds with a delay of 300 ms, three times
 */
 void error() {
-  // On boucle 3 fois
+  // We print error to Serial
+  Serial.println("Authentication failed")
+  
+  // We loop 3 times
   int count = 3;
   while (count != 0){
-    // Allumer toutes les LEDs
+    // Turn on all DELs
     delOutput(4,false);
-    // Patienter 200ms
+    // Wait 200ms
     delay(200);
-    // Eteindre toutes les LEDs
+    // Turn off all DELs
     delOutput(0,false);
-    // Patienter encore 200ms
+    // Wait another 200ms
     delay(200);
-    // Décrémenter le compteur
+    // Decrement counter
     count = count - 1;
   }
 }
