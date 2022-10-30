@@ -24,7 +24,7 @@ bool button4StatusOld;
   SETUP
   Mark all pins connected to buttons as input
 */
-void setup() {
+void inputSetup() {
   pinMode(button1Pin, INPUT);
   pinMode(button2Pin, INPUT);
   pinMode(button3Pin, INPUT);

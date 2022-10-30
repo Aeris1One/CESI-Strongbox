@@ -13,7 +13,7 @@ const int delGreenPin = 2;
   ---
   Mark all pins connected to DELs as output
 */
-void setup() {
+void outputSetup() {
   pinMode(del1Pin, OUTPUT);
   pinMode(del2Pin, OUTPUT);
   pinMode(del3Pin, OUTPUT);
@@ -33,11 +33,11 @@ void error() {
   int count = 3;
   while (count != 0){
     // Allumer toutes les LEDs
-    delOutput(4,false)
+    delOutput(4,false);
     // Patienter 200ms
     delay(200);
     // Eteindre toutes les LEDs
-    delOutput(0,false)
+    delOutput(0,false);
     // Patienter encore 200ms
     delay(200);
     // Décrémenter le compteur
