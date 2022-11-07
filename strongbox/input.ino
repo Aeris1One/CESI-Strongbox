@@ -37,7 +37,7 @@ void inputSetup() {
   Output: Which button is pressed
   Effect: Output which button is pressed
 */
-uint8_t buttonPressed(){
+uint8_t buttonPressed() {
   /*
     Here, we define 2 variables:
     - buttonXStatus which is the current status of the button (pressed or not)
@@ -53,23 +53,19 @@ uint8_t buttonPressed(){
   button3Status = digitalRead(button3Pin);
   button4StatusOld = button4Status;
   button4Status = digitalRead(button4Pin);
-  
+
   /*
     We return the number of the pressed button or 0 if no button is pressed
   */
-  if(button1StatusOld == HIGH && button1Status == LOW){
+  if (button1StatusOld == HIGH && button1Status == LOW) {
     return 1;
-  }
-  else if(button2StatusOld == HIGH && button2Status == LOW){
+  } else if (button2StatusOld == HIGH && button2Status == LOW) {
     return 2;
-  }
-  else if(button3StatusOld == HIGH && button3Status == LOW){
+  } else if (button3StatusOld == HIGH && button3Status == LOW) {
     return 3;
-  }
-  else if(button4StatusOld == HIGH && button4Status == LOW){
+  } else if (button4StatusOld == HIGH && button4Status == LOW) {
     return 4;
-  }
-  else{
+  } else {
     return 0;
   }
 }
