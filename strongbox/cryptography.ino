@@ -1,4 +1,10 @@
 /*
+  Constant
+  Define a table which link a key to an agent
+*/
+const uint16_t pubkey[16]={601,619,631,641,647,653,661,673,691,701,733,739,751,797,809,811};
+
+/*
   modexp
   Input : The base a, the exposant e and n
   Output: The remainder of the euclidean division of a^e by n
@@ -33,11 +39,8 @@ uint16_t modexp(uint16_t a, int16_t e, uint16_t n) {
   Output: The encrypted a
   Effect: Encryption of a using the m key, using RSA Algorithm
 */
-uint16_t encrypt(uint16_t m, uint16_t e){
-  uint16_t n = 43*67; // n = 2881
+uint16_t encrypt(uint16_t m, uint16_t e) {
+  uint16_t n = 43 * 67;  // n = 2881
   uint16_t c = modexp(m, e, n);
   return c;
 }
-
-
-
