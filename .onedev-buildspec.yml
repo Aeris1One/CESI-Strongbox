@@ -66,6 +66,9 @@ jobs:
       - ./bin/arduino-cli compile -b arduino:avr:uno strongbox
     useTTY: false
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
+  triggers:
+  - !BranchUpdateTrigger
+    paths: -strongbox/README.md -README.md .onedev-buildspec.yml -docs/**
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
