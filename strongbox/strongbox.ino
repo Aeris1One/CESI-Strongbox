@@ -20,7 +20,7 @@ const uint8_t code3 = 3;
 const uint8_t code4 = 4;
 
 // Variables
-uint8_t codeStatus;
+uint8_t authStatus;
 bool shouldError;
 
 void setup() {
@@ -29,7 +29,9 @@ void setup() {
   outputSetup();
 
   // When starting, we're asking for the passcode's first character
-  codeStatus = 1;
+  authStatus = 1;
+  // And no LED is on
+  delOutput(0, false);
 
   // Initiate Serial connection
   Serial.begin(9600);
@@ -40,54 +42,81 @@ void loop() {
   // This ensure the button isn't released during the loop execution
   uint8_t buttonVar = buttonPressed();
 
-  if (buttonVar != 0) {
-    if (codeStatus == 1) {
+  /*
+    auth loop
+    authStatus define what is the state of authentication ongoing
+
+    authStatus = 1 : wait for passcode first character input (blocking)
+    authStatus = 2 : wait for passcode second character input (blocking)
+    authStatus = 3 : wait for passcode third character input (blocking)
+    authStatus = 4 : wait for passcode fourst character input (blocking)
+    authStatus = 5 : verifying passcode inputs
+    authStatus = 6 : wait for agent code input (blocking)
+    authStatus = 7 : output encrypted random number
+    authStatus = 8 : wait for decrypted number input (blocking)
+    authStatus = 9 : verify number correspondance
+    authStatus = 10: opening vault
+
+    authStatus 5 and 9 are verifications, if one of them fail, revert back to 1.
+  */
+
+  if (authStatus == 1) {
+    if (buttonVar != 0) {
       if (buttonVar == code1) {
         Serial.println("Passcode authentication - Correct 1/4");
       } else {
         shouldError = true;
         Serial.println("Passcode authentication - Incorrect 1/4");
       }
+      authStatus++;
+      delOutput(1, false);
     }
-    if (codeStatus == 2) {
+  } else if (authStatus == 2) {
+    if (buttonVar != 0) {
       if (buttonVar == code2) {
         Serial.println("Passcode authentication - Correct 2/4");
       } else {
         shouldError = true;
         Serial.println("Passcode authentication - Incorrect 2/4");
       }
+      authStatus++;
+      delOutput(2, false);
     }
-    if (codeStatus == 3) {
+  } else if (authStatus == 3) {
+    if (buttonVar != 0) {
       if (buttonVar == code3) {
         Serial.println("Passcode authentication - Correct 3/4");
       } else {
         shouldError = true;
         Serial.println("Passcode authentication - Incorrect 3/4");
       }
+      authStatus++;
+      delOutput(3, false);
     }
-    if (codeStatus == 4) {
+  } else if (authStatus == 4) {
+    if (buttonVar != 0) {
       if (buttonVar == code4) {
         Serial.println("Passcode authentication - Correct 4/4");
       } else {
         shouldError = true;
         Serial.println("Passcode authentication - Incorrect 4/4");
       }
+      authStatus++;
+      delOutput(4, false);
     }
-
-    if (codeStatus != 4) {
-      codeStatus++;
-      delOutput(codeStatus - 1, false);
+  }
+  } else if authStatus == 5 {
+    if (shouldError) {
+      Serial.println("Passcode authentication - Failed");
+      error();
+      authStatus = 1;
+      shouldError = false;
     } else {
-      if (shouldError) {
-        Serial.println("Passcode authentication - Failed");
-        error();
-        codeStatus = 1;
-        shouldError = false;
-      } else {
-        Serial.println("Passcode authentication - Succeeded");
-        delOutput(4, true);
-        openSafe();
-      }
+      Serial.println("Passcode authentication - Succeeded");
+      delOutput(4, true);
+      authStatus++
     }
+  } else if authStatus == 6 {
+    // TODO !
   }
 }
