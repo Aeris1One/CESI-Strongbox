@@ -26,3 +26,18 @@ uint16_t modexp(uint16_t a, int16_t e, uint16_t n) {
   }
   return r;
 }
+
+/*
+  encrypt
+  Input : An integrer a, a public key m
+  Output: The encrypted a
+  Effect: Encryption of a using the m key, using RSA Algorithm
+*/
+uint16_t encrypt(uint16_t m, uint16_t e){
+  uint16_t n = 43*67; // n = 2881
+  uint16_t c = modexp(m, e, n);
+  return c;
+}
+
+
+
