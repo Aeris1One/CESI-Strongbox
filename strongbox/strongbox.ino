@@ -14,14 +14,14 @@
 #include <stdint.h>
 
 // Passcode definition
-const uint8_t code1 = 1;
-const uint8_t code2 = 2;
-const uint8_t code3 = 3;
-const uint8_t code4 = 4;
+const uint8_t code1 = 5;
+const uint8_t code2 = 4;
+const uint8_t code3 = 8;
+const uint8_t code4 = 1;
 
 // Variables
 uint8_t authStatus;
-bool shouldError;
+bool wrongPasscode;
 
 void setup() {
   // Setup input.ino and output.ino
@@ -40,7 +40,7 @@ void setup() {
 void loop() {
   // Call buttonPressed and store its output as buttonVar
   // This ensure the button isn't released during the loop execution
-  uint8_t buttonVar = buttonPressed();
+  int8_t buttonVar = buttonPressed();
 
   /*
     auth loop
@@ -61,62 +61,62 @@ void loop() {
   */
 
   if (authStatus == 1) {
-    if (buttonVar != 0) {
+    if (buttonVar > 0) {
       if (buttonVar == code1) {
         Serial.println("Passcode authentication - Correct 1/4");
       } else {
-        shouldError = true;
+        wrongPasscode = true;
         Serial.println("Passcode authentication - Incorrect 1/4");
       }
       authStatus++;
       delOutput(1, false);
     }
   } else if (authStatus == 2) {
-    if (buttonVar != 0) {
+    if (buttonVar > 0) {
       if (buttonVar == code2) {
         Serial.println("Passcode authentication - Correct 2/4");
       } else {
-        shouldError = true;
+        wrongPasscode = true;
         Serial.println("Passcode authentication - Incorrect 2/4");
       }
       authStatus++;
       delOutput(2, false);
     }
   } else if (authStatus == 3) {
-    if (buttonVar != 0) {
+    if (buttonVar > 0) {
       if (buttonVar == code3) {
         Serial.println("Passcode authentication - Correct 3/4");
       } else {
-        shouldError = true;
+        wrongPasscode = true;
         Serial.println("Passcode authentication - Incorrect 3/4");
       }
       authStatus++;
       delOutput(3, false);
     }
   } else if (authStatus == 4) {
-    if (buttonVar != 0) {
+    if (buttonVar > 0) {
       if (buttonVar == code4) {
         Serial.println("Passcode authentication - Correct 4/4");
       } else {
-        shouldError = true;
+        wrongPasscode = true;
         Serial.println("Passcode authentication - Incorrect 4/4");
       }
       authStatus++;
       delOutput(4, false);
     }
-  }
-  } else if authStatus == 5 {
-    if (shouldError) {
+  } else if (authStatus == 5) {
+    if (wrongPasscode) {
       Serial.println("Passcode authentication - Failed");
       error();
       authStatus = 1;
-      shouldError = false;
+      wrongPasscode = false;
     } else {
       Serial.println("Passcode authentication - Succeeded");
+      Serial.println("RSA Authentication - Waiting for agent ID");
       delOutput(4, true);
-      authStatus++
+      authStatus++;
     }
-  } else if authStatus == 6 {
-    // TODO !
+  } else if (authStatus == 6) {
+    delay(1);
   }
 }
