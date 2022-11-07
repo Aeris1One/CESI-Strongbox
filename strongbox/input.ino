@@ -2,10 +2,10 @@
   Constants
   Define pins connected to buttons
 */
-const int button1Pin = 13;
-const int button2Pin = 12;
-const int button3Pin = 11;
-const int button4Pin = 10;
+const uint8_t button1Pin = 13;
+const uint8_t button2Pin = 12;
+const uint8_t button3Pin = 11;
+const uint8_t button4Pin = 10;
 
 /* 
   Globals declaration
@@ -37,7 +37,7 @@ void inputSetup() {
   Output: Which button is pressed
   Effect: Output which button is pressed
 */
-int buttonPressed(){
+uint8_t buttonPressed(){
   /*
     Here, we define 2 variables:
     - buttonXStatus which is the current status of the button (pressed or not)

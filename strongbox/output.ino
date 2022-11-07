@@ -13,8 +13,8 @@ const int delGreenPin = 2;
   failedAuth : number of failedAuth since the last safe opening
   lockTime : time (in tenths of a second) the lock will last on failed opening attempt, will double each time the safe locks
 */
-int failedAuth = 0;
-int lockTime = 300;
+uint8_t failedAuth = 0;
+uint8_t lockTime = 300;
 
 /*
   setup
@@ -59,7 +59,7 @@ void error() {
   }
 
   // We loop 3 times
-  int count = 3;
+  uint8_t count = 3;
   while (count != 0){
     // Turn on all DELs
     delOutput(4,false);
@@ -82,8 +82,8 @@ void error() {
   Effect: Show an animation during the time defined as input. Synchronous, will block execution of the code, effectively
           locking the safe and preventing input.
 */
-void lock(int time) {
-  int delsOn = 0;
+void lock(uint8_t time) {
+  uint8_t delsOn = 0;
   while (time != 0){
     if (delsOn <= 4){
       delsOn++;
@@ -104,7 +104,7 @@ void lock(int time) {
   Effect: Turn on the number of red DEL specified as input. Turn off the excedant.
           Turn on or off the green DEL according to input.
 */
-void delOutput(int red, bool green){
+void delOutput(uint8_t red, uint8_t green){
   if(red>=1){
     digitalWrite(del1Pin, HIGH);
   } else {
