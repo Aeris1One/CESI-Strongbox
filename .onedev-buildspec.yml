@@ -31,7 +31,6 @@ jobs:
     paths: strongbox/**
   - !PullRequestUpdateTrigger
     branches: -basic
-    paths: strongbox/**
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
@@ -68,7 +67,10 @@ jobs:
     condition: ALL_PREVIOUS_STEPS_WERE_SUCCESSFUL
   triggers:
   - !BranchUpdateTrigger
-    paths: -strongbox/README.md -README.md .onedev-buildspec.yml -docs/**
+    branches: -basic
+    paths: strongbox/**
+  - !PullRequestUpdateTrigger
+    branches: -basic
   retryCondition: never
   maxRetries: 3
   retryDelay: 30
