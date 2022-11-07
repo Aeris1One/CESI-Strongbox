@@ -5,7 +5,7 @@
 const int del1Pin = 6;
 const int del2Pin = 5;
 const int del3Pin = 4;
-const int del4Pin = 3; 
+const int del4Pin = 3;
 const int delGreenPin = 2;
 
 /*
@@ -39,13 +39,13 @@ void outputSetup() {
 void error() {
   // We print error to Serial
   Serial.println("Authentication failed");
-  
+
   // If this is the fourst failed authentication attempt
   // i.e: If there was already 3 failed attempts registered
-  if (failedAuth == 3){
+  if (failedAuth == 3) {
     // Output the lock time to Serial
     Serial.print("Too much failed attemps, locking for ");
-    Serial.print(lockTime/10);
+    Serial.print(lockTime / 10);
     Serial.println(" seconds");
     // We lock the safe for lockTime
     lock(lockTime);
@@ -60,13 +60,13 @@ void error() {
 
   // We loop 3 times
   uint8_t count = 3;
-  while (count != 0){
+  while (count != 0) {
     // Turn on all DELs
-    delOutput(4,false);
+    delOutput(4, false);
     // Wait 200ms
     delay(200);
     // Turn off all DELs
-    delOutput(0,false);
+    delOutput(0, false);
     // Wait another 200ms
     delay(200);
     // Decrement counter
@@ -84,8 +84,8 @@ void error() {
 */
 void lock(uint8_t time) {
   uint8_t delsOn = 0;
-  while (time != 0){
-    if (delsOn <= 4){
+  while (time != 0) {
+    if (delsOn <= 4) {
       delsOn++;
     } else {
       delsOn = 0;
@@ -104,28 +104,28 @@ void lock(uint8_t time) {
   Effect: Turn on the number of red DEL specified as input. Turn off the excedant.
           Turn on or off the green DEL according to input.
 */
-void delOutput(uint8_t red, uint8_t green){
-  if(red>=1){
+void delOutput(uint8_t red, uint8_t green) {
+  if (red >= 1) {
     digitalWrite(del1Pin, HIGH);
   } else {
     digitalWrite(del1Pin, LOW);
   }
-  if(red>=2){
+  if (red >= 2) {
     digitalWrite(del2Pin, HIGH);
   } else {
     digitalWrite(del2Pin, LOW);
   }
-  if(red>=3){
+  if (red >= 3) {
     digitalWrite(del3Pin, HIGH);
   } else {
     digitalWrite(del3Pin, LOW);
   }
-  if(red>=4){
+  if (red >= 4) {
     digitalWrite(del4Pin, HIGH);
   } else {
     digitalWrite(del4Pin, LOW);
   }
-  if(green){
+  if (green) {
     digitalWrite(delGreenPin, HIGH);
   } else {
     digitalWrite(delGreenPin, LOW);
