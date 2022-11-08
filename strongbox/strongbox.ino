@@ -37,6 +37,7 @@ void setup() {
   Serial.begin(9600);
 }
 
+// FULL REWRITE NEEDED
 void loop() {
   // Call buttonPressed and store its output as buttonVar
   // This ensure the button isn't released during the loop execution
@@ -117,6 +118,7 @@ void loop() {
       authStatus++;
     }
   } else if (authStatus == 6) {
+    // TODO
     delay(1);
   }
 }
