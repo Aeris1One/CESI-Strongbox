@@ -1,10 +1,4 @@
 /*
-  Constant
-  Define a table which link a key to an agent
-*/
-const uint16_t pubkey[16]={601,619,631,641,647,653,661,673,691,701,733,739,751,797,809,811};
-
-/*
   modexp
   Input : The base a, the exposant e and n
   Output: The remainder of the euclidean division of a^e by n

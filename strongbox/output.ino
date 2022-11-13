@@ -38,15 +38,16 @@ void outputSetup() {
 */
 void error() {
   // We print error to Serial
-  Serial.println("Authentication failed");
+  Serial.println("Authentication ratée");
+  Serial.println("Le système du coffre-fort va maintenant se blocker");
 
   // If this is the fourst failed authentication attempt
   // i.e: If there was already 3 failed attempts registered
   if (failedAuth == 3) {
     // Output the lock time to Serial
-    Serial.print("Too much failed attemps, locking for ");
+    Serial.print("Trop d'essai raté, blockage du coffre pendant");
     Serial.print(lockTime / 10);
-    Serial.println(" seconds");
+    Serial.println(" secondes");
     // We lock the safe for lockTime
     lock(lockTime);
     // We double the lockTime for the next time
