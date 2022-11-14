@@ -7,7 +7,7 @@
 //                                __/ |
 //                               |___/
 
-// Version 0.1 - Basique
+// Version 1.0 - Prototype final
 
 // Use variable type from stdint
 // https://learn.adafruit.com/deciphering-strange-arduino-code/stdint
