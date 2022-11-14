@@ -49,7 +49,6 @@ void setup()
   Serial.println(F("Coffre initialisé, en attente de carte..."));
 }
 
-// FULL REWRITE NEEDED
 void loop()
 {
   // If a card is inserted

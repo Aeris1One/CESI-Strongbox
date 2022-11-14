@@ -14,7 +14,7 @@ const uint8_t delGreenPin = 3;
   lockTime : time (in tenths of a second) the lock will last on failed opening attempt, will double each time the safe locks
 */
 uint8_t failedAuth = 0;
-uint8_t lockTime = 300;
+uint16_t lockTime = 300;
 
 /*
   setup

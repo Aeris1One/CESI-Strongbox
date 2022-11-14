@@ -14,9 +14,9 @@ bool MA2()
     delay(1);
   }
   char d = Serial.readStringUntil('\n').charAt(0);
-  int e = pubkey[letterToNumber(d) - 1];
-  int m = 0;
-  int c = 0;
+  uint16_t e = pubkey[letterToNumber(d) - 1];
+  uint16_t m = 0;
+  uint16_t c = 0;
   m = random(1,2880);
   c = encrypt(m, e);
   if (c == 0)

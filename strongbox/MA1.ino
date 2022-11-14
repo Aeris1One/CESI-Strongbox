@@ -1,6 +1,7 @@
 int MA1Status = 0;
 
 bool MA1() {
+  serialFlush();
   // QUESTION 1
   Serial.println(F("Question numero 1 : combien y a t-il d'agents au sein de l'agence :\n1) 9\n2) 14\n3) 16\n4) 418"));
   while (Serial.available() == 0)

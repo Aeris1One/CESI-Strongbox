@@ -2,7 +2,7 @@
 void openSafe()
 {
   Serial.println("Safe opened");
-  Serial.println("Will re-lock in 5 seconds");
-  delay(5000);
-  Serial.println("Safe re-locked");
+  while(true){
+    delay(1);
+  }
 }
