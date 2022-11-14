@@ -1,10 +1,6 @@
 uint8_t passKey[4] = {5, 2, 3, 4};
 
 bool passkey() {
-  // !!!!!!!!!!!DEBUG!!!!!!!!!!!
-  return true;
-  // !!!!!!!!À RETIRER!!!!!!!!!!
-  
   bool rightPasskey = true;
   for (int i = 0; i < 4; i++) {
     int buttonVar = buttonPressed();
