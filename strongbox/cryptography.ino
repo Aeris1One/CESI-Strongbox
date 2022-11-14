@@ -12,7 +12,6 @@ uint16_t modexp(uint16_t a, int16_t e, uint16_t n) {
   // r is signed in order to be able to return -1 in case the impossible is true
   int16_t r;
   if (e < 0) {
-    Serial.println("Authentication error : e was negative !");
     return (-1);
   }
   if (a == 0 || n == 1) {

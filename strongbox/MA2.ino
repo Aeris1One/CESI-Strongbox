@@ -19,6 +19,11 @@ bool MA2()
   int c = 0;
   m = random(1,2880);
   c = encrypt(m, e);
+  if (c == 0)
+  {
+    Serial.println("Authentification MA2: Erreur de chiffrement");
+    return false;
+  }
   Serial.print("Authentification MA2: Veuillez déchiffrer ce code : ");
   Serial.println(c);
 
