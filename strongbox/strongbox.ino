@@ -40,20 +40,22 @@ void setup()
 
   // Initiate Serial connection
   Serial.begin(9600);
+  Serial.println("Initialisation...");
 
   // Add a seed for random function in order to have different values upon subsequent executions
   // Analog port 5 is unconnected, and as such receive near-random data
   randomSeed(analogRead(5));
+
+  Serial.println(F("Coffre initialisé, en attente de carte..."));
 }
 
 // FULL REWRITE NEEDED
 void loop()
 {
-  Serial.println("Coffre démarré, en attente...");
   // If a card is inserted
-  if (isCardInserted ())
+  if (isCardInserted())
   {
-    Serial.println("Carte insérée, mot de passe requis");
+    Serial.println(F("Carte insérée, mot de passe requis"));
     // And if the passkey auth passed successfully
     if (passkey())
     {

@@ -3,7 +3,7 @@ const uint16_t cardModelVoltage[8][2] = {{322, 326}, {507, 512}, {605, 610}, {83
 
 uint8_t isCardInserted()
 {
-    return (analogRead(A0) != 0);
+  return (analogRead(A0) != 0);
 }
 
 uint8_t cardModel()

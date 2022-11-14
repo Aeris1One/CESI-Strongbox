@@ -2,11 +2,11 @@
   Constants
   Define pins connected to DELs
 */
-const int del1Pin = 6;
-const int del2Pin = 5;
-const int del3Pin = 4;
-const int del4Pin = 3;
-const int delGreenPin = 2;
+const uint8_t del1Pin = 4;
+const uint8_t del2Pin = 5;
+const uint8_t del3Pin = 6;
+const uint8_t del4Pin = 7;
+const uint8_t delGreenPin = 3;
 
 /*
   Variables

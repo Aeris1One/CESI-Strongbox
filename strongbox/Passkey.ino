@@ -27,7 +27,7 @@ bool passkey() {
       delay(1000);
       rightPasskey = false;
     }
-    delOutput(i, false);
+    delOutput(i + 1, (i==3));
   }
   return rightPasskey;
 }
