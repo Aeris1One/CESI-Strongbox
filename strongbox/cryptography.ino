@@ -19,7 +19,7 @@ uint16_t modexp(uint16_t a, int16_t e, uint16_t n) {
     r = 0;
   } else {
     r = 1;
-    while (e != 0) {
+    while (e > 0) {
       r = (r * (a % n)) % n;
       e = e - 1;
     }

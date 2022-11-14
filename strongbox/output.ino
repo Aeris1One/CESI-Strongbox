@@ -38,9 +38,8 @@ void outputSetup() {
 */
 void error() {
   // We print error to Serial
-  Serial.println("Authentication ratée");
-  Serial.println("Le système du coffre-fort va maintenant se blocker");
-
+  Serial.println("Authentication en erreur");
+  
   // If this is the fourst failed authentication attempt
   // i.e: If there was already 3 failed attempts registered
   if (failedAuth == 3) {

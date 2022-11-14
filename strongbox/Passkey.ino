@@ -1,16 +1,37 @@
 uint8_t passKey[4] = {5, 2, 3, 4};
 
-void passkey() {
+bool passkey() {
+  // !!!!!!!!!!!DEBUG!!!!!!!!!!!
+  return true;
+  // !!!!!!!!À RETIRER!!!!!!!!!!
+  
+  bool rightPasskey = true;
   for (int i = 0; i < 4; i++) {
-    while (buttonPressed() == 0)
+    int buttonVar = buttonPressed();
+    while (buttonVar == 0)
     {
-      delay(1);
+      delay(1000);
+      buttonVar = buttonPressed();
     }
-    if (buttonPressed()) == passKey[i] { 
-      Serial.println("Correct");
+    if (buttonVar == passKey[i]) { 
+      Serial.print("Vous avez entré : ");
+      Serial.println(buttonVar);
+      Serial.print("Correct (");
+      Serial.print(i+1);
+      Serial.println("/4)");
+      delay(1000);
     }
-    else {
-      Serial.println("Incorrect");
+    else
+    {
+      Serial.print("Vous avez entré : ");
+      Serial.println(buttonVar);
+      Serial.print("Incorrect (");
+      Serial.print(i+1);
+      Serial.println("/4)");
+      delay(1000);
+      rightPasskey = false;
     }
+    delOutput(i, false);
   }
+  return rightPasskey;
 }

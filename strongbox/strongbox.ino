@@ -40,16 +40,22 @@ void setup()
 
   // Initiate Serial connection
   Serial.begin(9600);
+
+  // Add a seed for random function in order to have different values upon subsequent executions
+  // Analog port 5 is unconnected, and as such receive near-random data
+  randomSeed(analogRead(5));
 }
 
 // FULL REWRITE NEEDED
 void loop()
 {
+  Serial.println("Coffre démarré, en attente...");
   // If a card is inserted
-  if isCardInserted ()
+  if (isCardInserted ())
   {
+    Serial.println("Carte insérée, mot de passe requis");
     // And if the passkey auth passed successfully
-    if passkey ()
+    if (passkey())
     {
       // If necessary, run MA1
       if (securityTierMethods[cardSecurityTier[cardModel() - 1]][0])
@@ -99,5 +105,9 @@ void loop()
       // If all the methods passed, the authentication succeeded
       openSafe();
       return;
+    } else {
+      error();
+      return;
     }
   }
+}

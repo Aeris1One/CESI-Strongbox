@@ -2,10 +2,10 @@
   Constants
   Define pins connected to buttons
 */
-const uint8_t button1Pin = 13;
-const uint8_t button2Pin = 12;
-const uint8_t button3Pin = 11;
-const uint8_t button4Pin = 10;
+const uint8_t button1Pin = 8;
+const uint8_t button2Pin = 9;
+const uint8_t button3Pin = 10;
+const uint8_t button4Pin = 11;
 
 /*
   Globals declaration
@@ -90,4 +90,15 @@ uint8_t buttonPressed()
 int letterToNumber(char letter)
 {
     return letter - 'A' + 1;
+}
+
+
+// Serial flush function
+// Not sure why it is needed, but we need to empty the Serial incomming buffer.
+// Since the deprecation of Serial.flush(), should be done by reading
+void serialFlush(){
+  while (Serial.available() != 0)
+  {
+    int r = Serial.read();
+  }
 }

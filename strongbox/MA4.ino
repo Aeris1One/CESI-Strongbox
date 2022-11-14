@@ -1,10 +1,10 @@
 bool MA4()
 {
-    Serial.println("Initialisation du Scan digital");
+    Serial.println("Authentification MA4: Initialisation du Scan digital");
     delay(2000);
-    Serial.println("Veuiller présentez votre main");
-    Serial.println("Analyse de l'empreinte, veuillez ne pas bouger votre main");
+    Serial.println("Authentification MA4: Veuiller présentez votre main");
+    Serial.println("Authentification MA4: Analyse de l'empreinte, veuillez ne pas bouger votre main");
     delay(2000);
-    Serial.println("Epreinte reconnue");
-    Serial.println("Étape d'authentification réussie.") return true;
+    Serial.println("Authentification MA4: Empreinte reconnue");
+    return true;
 }

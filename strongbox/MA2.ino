@@ -6,31 +6,41 @@ const uint16_t pubkey[16] = {601, 619, 631, 641, 647, 653, 661, 673, 691, 701, 7
 
 bool MA2()
 {
-  Serial.println("Entrez votre nom d'agent");
+  Serial.println("Authentification MA2: Entrez votre nom d'agent");
+  serialFlush();
   while (Serial.available() == 0)
   {
     // Do nothing, just hang until there's some data to read
     delay(1);
   }
-  String d = Serial.readStringUntil('\n');
+  char d = Serial.readStringUntil('\n').charAt(0);
   int e = pubkey[letterToNumber(d) - 1];
   int m = 0;
   int c = 0;
   m = random(1,2880);
-  c = modexp(m, e, n);
-  Serial.print("Veuillez déchiffrer ce code : ");
+  c = encrypt(m, e);
+  Serial.print("Authentification MA2: Veuillez déchiffrer ce code : ");
   Serial.println(c);
-  Serial.println("Saissisez votre code déchiffré.");
+
+  // !!!!!!DEBUG!!!!!!
+  Serial.print("***Débug prototype: Vous devriez trouver ");
+  Serial.println(m);
+  // !!!!À RETIRER!!!!
+
+  Serial.println("Authentification MA2: Saissisez votre code déchiffré.");
+  serialFlush();
   while (Serial.available() == 0)
   {
     // Do nothing, just hang until there's some data to read
     delay(1);
   }
-  int M = Serial.readStringUntil('\n');
+  uint32_t M = Serial.parseInt();
   if (M==m){
-    return true
+    Serial.println("Authentification MA2: Code valide");
+    return true;
   }
   else{
-    return false
+    Serial.println("Authentification MA2: Code invalide");
+    return false;
   }
 }
