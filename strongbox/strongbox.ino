@@ -13,6 +13,7 @@
 // https://learn.adafruit.com/deciphering-strange-arduino-code/stdint
 #include <stdint.h>
 
+<<<<<<< HEAD
 // Constants
 // Security tier for each card model
 
@@ -49,6 +50,7 @@ void setup()
   Serial.println(F("Coffre initialisé, en attente de carte..."));
 }
 
+<<<<<<< HEAD
 void loop()
 {
   // If a card is inserted

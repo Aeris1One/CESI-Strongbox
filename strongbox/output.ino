@@ -8,6 +8,7 @@ const uint8_t del3Pin = 6;
 const uint8_t del4Pin = 7;
 const uint8_t delGreenPin = 3;
 
+
 /*
   Variables
   failedAuth : number of failedAuth since the last safe opening
@@ -47,10 +48,13 @@ void error() {
     Serial.print("Trop d'essai raté, blockage du coffre pendant");
     Serial.print(lockTime / 10);
     Serial.println(" secondes");
+
     // We lock the safe for lockTime
     lock(lockTime);
+
     // We double the lockTime for the next time
     lockTime = lockTime * 2;
+    
     // N.B: No need to decrement failedAuth, it will stay at 3 and fire
     // another lock on the next failed attempt.
   } else {
