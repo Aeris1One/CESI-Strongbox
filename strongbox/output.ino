@@ -1,6 +1,6 @@
 /*
-  Constants
-  Define pins connected to DELs
+  Constantes
+  Définir les pins connectés aux DELs
 */
 const uint8_t del1Pin = 4;
 const uint8_t del2Pin = 5;
@@ -11,8 +11,8 @@ const uint8_t delGreenPin = 3;
 
 /*
   Variables
-  failedAuth : number of failedAuth since the last safe opening
-  lockTime : time (in tenths of a second) the lock will last on failed opening attempt, will double each time the safe locks
+  failedAuth : nombre d'erreur d'authentifications
+  lockTime : durée (en dizièmes de secondes) pendant laquelle le coffre se vérouille la première fois (après 3 erreurs, double à chaque erreur supplémentaire)
 */
 uint8_t failedAuth = 0;
 uint16_t lockTime = 300;
@@ -20,7 +20,7 @@ uint16_t lockTime = 300;
 /*
   setup
   ---
-  Mark all pins connected to DELs as output
+  Définir tous les pins des DELs comme des sorties
 */
 void outputSetup() {
   pinMode(del1Pin, OUTPUT);
@@ -33,47 +33,46 @@ void outputSetup() {
 /*
   error
   ---
-  Input : Nothing
-  Output: Nothing
-  Effect: Turn on then off all red leds with a delay of 300 ms, three times
+  Entrée : Rien
+  Sortie : Rien
+  Effet  : Affiche un animation d'erreur et bloque si nécessaire le programme
 */
 void error() {
-  // We print error to Serial
+  // Envoyer un signal d'erreur sur la communication série
   Serial.println("Authentication en erreur");
   
-  // If this is the fourst failed authentication attempt
-  // i.e: If there was already 3 failed attempts registered
+  // Bloquer le coffre si nécessaire
   if (failedAuth == 3) {
-    // Output the lock time to Serial
+    // Envoyer le temps de verrouillage via la communication série
     Serial.print("Trop d'essai raté, blockage du coffre pendant");
     Serial.print(lockTime / 10);
     Serial.println(" secondes");
 
-    // We lock the safe for lockTime
+    // Verrouiller le coffre pendant le temps défini
     lock(lockTime);
 
-    // We double the lockTime for the next time
+    // Doubler le temps défini pour le prochain verrouillage
     lockTime = lockTime * 2;
     
-    // N.B: No need to decrement failedAuth, it will stay at 3 and fire
-    // another lock on the next failed attempt.
+    // N.B: Pas besoin de décrémenter failedAuth, car il n'est pas incrémenté
+    //     dans la fonction si le coffre se verrouille
   } else {
-    // We increment the number of failed tries
+    // Incrémentation du nombre d'erreur d'authentification
     failedAuth++;
   }
 
-  // We loop 3 times
+  // Boucler 3 fois
   uint8_t count = 3;
   while (count != 0) {
-    // Turn on all DELs
     delOutput(4, false);
-    // Wait 200ms
+    // Allumer toutes les DELs
+    // Attendre 200ms
     delay(200);
-    // Turn off all DELs
+    // Eteinre toutes les DELs
     delOutput(0, false);
-    // Wait another 200ms
+    // Attendre encore 200ms
     delay(200);
-    // Decrement counter
+    // Décrémenter le compteur
     count--;
   }
 }
@@ -81,10 +80,9 @@ void error() {
 /*
   lock
   ---
-  Input : Time in tenths of a second
-  Output: Nothing
-  Effect: Show an animation during the time defined as input. Synchronous, will block execution of the code, effectively
-          locking the safe and preventing input.
+  Entrée : time : durée (en dizièmes de secondes) pendant laquelle le coffre se vérouille
+  Sortie : Rien
+  Effet  : Verrouille le coffre pendant le temps défini
 */
 void lock(uint8_t time) {
   uint8_t delsOn = 0;
@@ -103,10 +101,10 @@ void lock(uint8_t time) {
 /*
   delOutput
   ---
-  Input : Integrer "red", boolean "green"
-  Output: Nothing
-  Effect: Turn on the number of red DEL specified as input. Turn off the excedant.
-          Turn on or off the green DEL according to input.
+  Entrée : red : nombre de DELs rouges à allumer
+           green : booléen, si la DEL verte doit être allumée
+  Sortie : Rien
+  Effet  : Allume les DELs rouges et la DEL verte si nécessaire
 */
 void delOutput(uint8_t red, uint8_t green) {
   if (red >= 1) {

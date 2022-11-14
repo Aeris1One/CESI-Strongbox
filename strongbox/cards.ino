@@ -4,9 +4,9 @@ const uint16_t cardModelVoltage[8][2] = {{322, 326}, {507, 512}, {605, 610}, {83
 /*
   isCardInserted
   ---
-  Input : Nothing
-  Output: If a card is inserted, boolean
-  Effect: Return if a card is inserted
+  Entrée : Aucune
+  Sortie : Booléen
+  Effet  : Retourne vrai si une carte est insérée, faux sinon
 */
 uint8_t isCardInserted()
 {
@@ -16,9 +16,9 @@ uint8_t isCardInserted()
 /*
   cardModel
   ---
-  Input : Nothing
-  Output: The card model
-  Effect: Return the card model
+  Entrée : Aucune
+  Sortie : Entier
+  Effet  : Retourne le numéro de la carte insérée
 */
 uint8_t cardModel()
 {

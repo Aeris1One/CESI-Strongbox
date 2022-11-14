@@ -1,9 +1,9 @@
 /*
-  MA4
+  MA
   ---
-  Input : Nothing
-  Output: If authentication step succeeded, boolean
-  Effect: Run authentication step and return if it succeeded
+  Entrée : Rien
+  Sortie : Booléen, si la méthode a réussi
+  Effet  : Tente l'authentification MA4, répondre true si succès, false sinon
 */
 bool MA4()
 {

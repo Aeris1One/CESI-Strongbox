@@ -1,9 +1,9 @@
 /*
   openSafe
   ---
-  Input : Nothing
-  Output: Nothing
-  Effect: Open the safe (simulate it)
+  Entrée : Rien
+  Sortie : Rien
+  Effet  : Ouvre le coffre-fort et affiche un message de succès
 */
 void openSafe()
 {

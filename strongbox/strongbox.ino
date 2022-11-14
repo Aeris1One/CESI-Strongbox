@@ -9,18 +9,17 @@
 
 // Version 1.0 - Prototype final
 
-// Use variable type from stdint
+// Nous utilisons les types de données de stdint.h
 // https://learn.adafruit.com/deciphering-strange-arduino-code/stdint
 #include <stdint.h>
 
-// Constants
-// Security tier for each card model
-
-// niveau de sécurité 1 : MA1 + MA3              : modèles -> 1
-// niveau de sécurité 2 : MA1 + MA4              : modèles -> 2 et 8
-// niveau de sécurité 3 : MA2 + MA5              : modèles -> 3 et 7
-// niveau de sécurité 4 : MA2 + MA3 + MA4        : modèles -> 4 et 6
-// niveau de sécurité 5 : MA1 + MA2 + MA3 + MA5  : modèles -> 5
+// Constantes
+// Niveaux de sécurité
+// Niveau de sécurité 1 : MA1 + MA3              : modèles -> 1
+// Niveau de sécurité 2 : MA1 + MA4              : modèles -> 2 et 8
+// Niveau de sécurité 3 : MA2 + MA5              : modèles -> 3 et 7
+// Niveau de sécurité 4 : MA2 + MA3 + MA4        : modèles -> 4 et 6
+// Niveau de sécurité 5 : MA1 + MA2 + MA3 + MA5  : modèles -> 5
 
 uint8_t cardSecurityTier[8] = {1, 2, 3, 4, 5, 4, 3, 2};
 bool securityTierMethods[5][5] = {{true, false, true, false, false},
@@ -31,19 +30,19 @@ bool securityTierMethods[5][5] = {{true, false, true, false, false},
 
 void setup()
 {
-  // Setup input.ino and output.ino
+  // Initialiser input.ino et output.ino
   inputSetup();
   outputSetup();
 
-  // And no LED is on
+  // Désactiver toutes les DELs
   delOutput(0, false);
 
-  // Initiate Serial connection
+  // Initialiser la communication série
   Serial.begin(9600);
   Serial.println("Initialisation...");
 
-  // Add a seed for random function in order to have different values upon subsequent executions
-  // Analog port 5 is unconnected, and as such receive near-random data
+  // Définir la seed pour la fonction 'random'
+  // Le port analogique 5 est déconnecté et recoit donc des données pseudo-aléatoires
   randomSeed(analogRead(5));
 
   Serial.println(F("Coffre initialisé, en attente de carte..."));
@@ -51,59 +50,64 @@ void setup()
 
 void loop()
 {
-  // If a card is inserted
+  // Si une carte est détectée
   if (isCardInserted())
   {
     Serial.println(F("Carte insérée, mot de passe requis"));
-    // And if the passkey auth passed successfully
+    // Et que le mot de passe est correct
     if (passkey())
     {
-      // If necessary, run MA1
+      // Si nécessaire, exécuter MA1
       if (securityTierMethods[cardSecurityTier[cardModel() - 1]][0])
       {
         if (!MA1())
         {
+          // Si une erreur est survenue dans MA1, afficher une erreur et quitter
           error();
           return;
         }
       }
-      // If necessary, run MA2
+      // Si nécessaire, exécuter MA2
       if (securityTierMethods[cardSecurityTier[cardModel() - 1]][1])
       {
         if (!MA2())
         {
+          // Si une erreur est survenue dans MA2, afficher une erreur et quitter
           error();
           return;
         }
       }
-      // If necessary, run MA3
+      // Si nécessaire, exécuter MA3
       if (securityTierMethods[cardSecurityTier[cardModel() - 1]][2])
       {
         if (!MA3())
         {
+          // Si une erreur est survenue dans MA3, afficher une erreur et quitter
           error();
           return;
         }
       }
-      // If necessary, run MA4
+      // Si nécessaire, exécuter MA4
       if (securityTierMethods[cardSecurityTier[cardModel() - 1]][3])
       {
         if (!MA4())
         {
+          // Si une erreur est survenue dans MA4, afficher une erreur et quitter
           error();
           return;
         }
       }
-      // If necessary, run MA5
+      // Si nécessaire, exécuter MA5
       if (securityTierMethods[cardSecurityTier[cardModel() - 1]][4])
       {
         if (!MA5())
         {
+          // Si une erreur est survenue dans MA5, afficher une erreur et quitter
           error();
           return;
         }
       }
-      // If all the methods passed, the authentication succeeded
+      // Si toutes les méthodes d'authentification nécessaires ont été exécutées avec succès, afficher un message de succès
       openSafe();
       return;
     } else {

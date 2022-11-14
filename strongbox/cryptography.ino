@@ -1,8 +1,9 @@
 /*
   modexp
-  Input : The base a, the exposant e and n
-  Output: The remainder of the euclidean division of a^e by n
-  Effect: Modular exponentiation
+  ---
+  Entrée : 3 entiers, a, b et n
+  Sortie : a^b mod n
+  Effet  : Retourne a^b mod n
 */
 
 // Why is "e" signed ? ¯\_(ツ)_/¯
@@ -28,9 +29,10 @@ uint32_t modexp(uint16_t a, int16_t e, uint16_t n) {
 
 /*
   encrypt
-  Input : An integrer a, a public key m
-  Output: The encrypted a
-  Effect: Encryption of a using the m key, using RSA Algorithm
+  ---
+  Entrée : 2 entiers, m et e
+  Sortie : e chiffré avec la clé publique m
+  Effet  : Retourne e chiffré avec la clé publique m
 */
 uint16_t encrypt(uint16_t m, uint16_t e) {
   uint16_t n = 43 * 67;  // n = 2881

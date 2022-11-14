@@ -1,6 +1,6 @@
 /*
-  Constants
-  Define pins connected to buttons
+  Constantes
+  Définir les pins connectés aux boutons
 */
 const uint8_t button1Pin = 8;
 const uint8_t button2Pin = 9;
@@ -8,7 +8,7 @@ const uint8_t button3Pin = 10;
 const uint8_t button4Pin = 11;
 
 /*
-  Globals declaration
+  Déclaration des variables
 */
 bool button1Status;
 bool button1StatusOld;
@@ -21,7 +21,7 @@ bool button4StatusOld;
 
 /*
   SETUP
-  Mark all pins connected to buttons as input
+  Marquer les pins des boutons comme des entrées
 */
 void inputSetup()
 {
@@ -34,20 +34,13 @@ void inputSetup()
 /*
   buttonPressed
   ---
-  Input : Nothing
-  Output: Which button is pressed
-  Effect: Output which button is pressed
+  Entrée : Rien
+  Sortie : Rien
+  Effet  : Retourne le numéro du bouton appuyé
 */
 uint8_t buttonPressed()
 {
   uint8_t a;
-
-  /*
-    Here, we define 2 variables:
-    - buttonXStatus which is the current status of the button (pressed or not)
-    - buttonXStatusOld which is the status of the button during the last function execution
-    By comparing the two we can detect when a button is pressed
-  */
 
   button1StatusOld = button1Status;
   button1Status = digitalRead(button1Pin);
@@ -59,7 +52,8 @@ uint8_t buttonPressed()
   button4Status = digitalRead(button4Pin);
 
   /*
-    We return the number of the pressed button or 0 if no button is pressed
+    Si le bouton est appuyé et qu'il n'était pas appuyé avant
+    alors retourner le numéro du bouton
   */
   if (button1StatusOld == HIGH && button1Status == LOW)
   {
@@ -89,9 +83,9 @@ uint8_t buttonPressed()
 /*
   letterToNumber
   ---
-  Input : A letter
-  Output: The number corresponding to the letter
-  Effect: Output the number corresponding to the letter
+  Entrée : char
+  Sortie : uint8_t
+  Effet  : Retourne le numéro correspondant à la lettre
 */
 int letterToNumber(char letter)
 {
@@ -102,9 +96,9 @@ int letterToNumber(char letter)
 /*
   serialFlush
   ---
-  Input : Nothing
-  Output: Nothing
-  Effect: Flush the serial buffer
+  Entrée : Rien
+  Sortie : Rien
+  Effet  : Vide le buffer de la liaison série
 */
 void serialFlush(){
   while (Serial.available() != 0)

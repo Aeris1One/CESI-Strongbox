@@ -1,9 +1,9 @@
 /*
   MA3
   ---
-  Input : Nothing
-  Output: If authentication step succeeded, boolean
-  Effect: Run authentication step and return if it succeeded
+  Entrée : Rien
+  Sortie : Booléen, si la méthode a réussi
+  Effet  : Tente l'authentification MA3, répondre true si succès, false sinon
 */
 bool MA3()
 {

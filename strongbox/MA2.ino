@@ -1,15 +1,15 @@
 /*
-  Constant
-  Define a table which link a key to an agent
+  Constantes
+  Definir une liste contenant les clés publiques de chaque agent
 */
 const uint16_t pubkey[16] = {601, 619, 631, 641, 647, 653, 661, 673, 691, 701, 733, 739, 751, 797, 809, 811};
 
 /*
   MA2
   ---
-  Input : Nothing
-  Output: If authentication step succeeded, boolean
-  Effect: Run authentication step and return if it succeeded
+  Entrée : Rien
+  Sortie : Booléen, si la méthode a réussi
+  Effet  : Tente l'authentification MA2, répondre true si succès, false sinon
 */
 bool MA2()
 {
@@ -17,7 +17,7 @@ bool MA2()
   serialFlush();
   while (Serial.available() == 0)
   {
-    // Do nothing, just hang until there's some data to read
+    // Attendre que l'utilisateur entre son code
     delay(1);
   }
   char d = Serial.readStringUntil('\n').charAt(0);
@@ -43,7 +43,7 @@ bool MA2()
   serialFlush();
   while (Serial.available() == 0)
   {
-    // Do nothing, just hang until there's some data to read
+    // Attendre que l'utilisateur entre son code
     delay(1);
   }
   uint32_t M = Serial.parseInt();

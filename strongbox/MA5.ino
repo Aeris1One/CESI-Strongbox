@@ -3,9 +3,9 @@ const uint32_t cardid[16] = {866416, 846317, 983214, 315100, 555611, 661988, 947
 /*
   MA5
   ---
-  Input : Nothing
-  Output: If authentication step succeeded, boolean
-  Effect: Run authentication step and return if it succeeded
+  Entrée : Rien
+  Sortie : Booléen, si la méthode a réussi
+  Effet  : Tente l'authentification MA5, répondre true si succès, false sinon
 */
 bool MA5()
 {
@@ -13,7 +13,7 @@ bool MA5()
     serialFlush();
     while (Serial.available() == 0)
     {
-        // Do nothing, just hang until there's some data to read
+        // Attendre que l'utilisateur entre son code
         delay(1);
     }
     char a = Serial.readStringUntil('\n').charAt(0);
@@ -21,7 +21,7 @@ bool MA5()
     serialFlush();
     while (Serial.available() == 0)
     {
-        // Do nothing, just hang until there's some data to read
+        // Attendre que l'utilisateur entre son code
         delay(1);
     }
     uint32_t b = Serial.parseInt();
