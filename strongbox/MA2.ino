@@ -4,6 +4,13 @@
 */
 const uint16_t pubkey[16] = {601, 619, 631, 641, 647, 653, 661, 673, 691, 701, 733, 739, 751, 797, 809, 811};
 
+/*
+  MA2
+  ---
+  Input : Nothing
+  Output: If authentication step succeeded, boolean
+  Effect: Run authentication step and return if it succeeded
+*/
 bool MA2()
 {
   Serial.println("Authentification MA2: Entrez votre nom d'agent");

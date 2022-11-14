@@ -1,3 +1,10 @@
+/*
+  MA4
+  ---
+  Input : Nothing
+  Output: If authentication step succeeded, boolean
+  Effect: Run authentication step and return if it succeeded
+*/
 bool MA4()
 {
     Serial.println("Authentification MA4: Initialisation du Scan digital");

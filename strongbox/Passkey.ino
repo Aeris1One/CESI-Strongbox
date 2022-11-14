@@ -1,5 +1,12 @@
 uint8_t passKey[4] = {5, 2, 3, 4};
 
+/*
+  passkey
+  ---
+  Input : Nothing
+  Output: If authentication step succeeded, boolean
+  Effect: Run passkey step and return if it succeeded
+*/
 bool passkey() {
   bool rightPasskey = true;
   for (int i = 0; i < 4; i++) {

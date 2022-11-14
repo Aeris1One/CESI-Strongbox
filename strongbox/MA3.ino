@@ -1,3 +1,10 @@
+/*
+  MA3
+  ---
+  Input : Nothing
+  Output: If authentication step succeeded, boolean
+  Effect: Run authentication step and return if it succeeded
+*/
 bool MA3()
 {
     Serial.println("Authentification MA3: Initialisation du Scan rétinien");

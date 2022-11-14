@@ -33,6 +33,7 @@ void inputSetup()
 
 /*
   buttonPressed
+  ---
   Input : Nothing
   Output: Which button is pressed
   Effect: Output which button is pressed
@@ -85,17 +86,26 @@ uint8_t buttonPressed()
 }
 
 
-// Match a letter to a number
-// A = 1, B = 2, C = 3, etc.
+/*
+  letterToNumber
+  ---
+  Input : A letter
+  Output: The number corresponding to the letter
+  Effect: Output the number corresponding to the letter
+*/
 int letterToNumber(char letter)
 {
     return letter - 'A' + 1;
 }
 
 
-// Serial flush function
-// Not sure why it is needed, but we need to empty the Serial incomming buffer.
-// Since the deprecation of Serial.flush(), should be done by reading
+/*
+  serialFlush
+  ---
+  Input : Nothing
+  Output: Nothing
+  Effect: Flush the serial buffer
+*/
 void serialFlush(){
   while (Serial.available() != 0)
   {

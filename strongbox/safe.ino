@@ -1,4 +1,10 @@
-// Fonction future pour l'ouverture du coffre
+/*
+  openSafe
+  ---
+  Input : Nothing
+  Output: Nothing
+  Effect: Open the safe (simulate it)
+*/
 void openSafe()
 {
   Serial.println("Safe opened");

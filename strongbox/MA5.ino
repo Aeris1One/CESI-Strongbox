@@ -1,5 +1,12 @@
 const uint32_t cardid[16] = {866416, 846317, 983214, 315100, 555611, 661988, 947888, 962210, 120806, 600097, 645984, 978979, 654547, 123158, 985167, 989548};
 
+/*
+  MA5
+  ---
+  Input : Nothing
+  Output: If authentication step succeeded, boolean
+  Effect: Run authentication step and return if it succeeded
+*/
 bool MA5()
 {
     Serial.println("Authentification MA5: Entrez votre code agent");

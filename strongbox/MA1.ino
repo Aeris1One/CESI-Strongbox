@@ -1,5 +1,12 @@
 int MA1Status = 0;
 
+/*
+  MA1
+  ---
+  Input : Nothing
+  Output: If authentication step succeeded, boolean
+  Effect: Run authentication step and return if it succeeded
+*/
 bool MA1() {
   serialFlush();
   // QUESTION 1
@@ -11,7 +18,7 @@ bool MA1() {
   }
   int answer = Serial.parseInt();
   if (answer == 4){
-    Serial.println("I'm a teapot");
+    Serial.println(F("I'm a teapot"));
   }
   if (answer != 3){
     return false;
